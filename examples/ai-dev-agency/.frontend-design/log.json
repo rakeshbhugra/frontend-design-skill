@@ -1,0 +1,7 @@
+[
+  { "date": "2026-09-16", "page": "landing", "macrostructure": "Poster Fold",
+    "archetype": "awwwards-cinematic", "arc": "hook > problem > solution+how > proof > close",
+    "nav": "sticky-over-fold", "hero": "full-bleed-photo/copy-bottom-left", "footer": "single-row",
+    "effect": "scroll-scrubbed-word-reveal", "knobs": "proof=contract-terms, how=five-day-row, palette=studied-from-reference, imagery=cinematic-aerial-photo",
+    "brief": "Kestrel, fictional AI-native software studio, ships in build weeks" }
+]

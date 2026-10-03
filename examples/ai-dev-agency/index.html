@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151a1e">
+  <title>Kestrel, an AI-native software studio</title>
+  <meta name="description" content="Kestrel pairs senior engineers with AI agents to build, test, and ship production software in build weeks, not quarters.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap">
+  <script>document.documentElement.classList.replace("no-js", "js");</script>
+  <style>
+    /* frontend-design · macrostructure: Poster Fold · archetype: awwwards-cinematic
+     * arc: hook > problem > solution+how > proof > close · hero: full-bleed photo fold, copy bottom-left
+     * effect: scroll-scrubbed-word-reveal · palette: studied from reference (slate + moss + lichen), dark only · contrast: matrix in style-lock */
+    :root {
+      --color-bg: #151a1e;
+      --color-surface: #1f272c;
+      --color-border: #2c363c;
+      --color-text: #e6ebea;
+      --color-text-muted: #9aa5a3;
+      --color-primary: #b7cf8f;
+      --color-on-primary: #151a1e;
+      --color-accent: #b7cf8f;
+      --color-focus: #e6ebea;
+
+      --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+      --font-body: "Hanken Grotesk", system-ui, sans-serif;
+      --font-mono: "Azeret Mono", ui-monospace, Menlo, monospace;
+
+      --text-sm: 14px;
+      --text-base: 16px;
+      --text-lg: 20px;
+      --text-xl: 25px;
+      --text-2xl: 31px;
+      --text-display: clamp(48px, 7.4vw, 124px);
+      --text-statement: clamp(34px, 4.8vw, 68px);
+      --leading-tight: 0.92;
+      --leading-body: 1.55;
+      --measure: 62ch;
+
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+      --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+      --space-24: 96px; --space-32: 128px; --space-44: 176px;
+      --gutter: clamp(16px, 4vw, 48px);
+      --max: 1400px;
+
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 14px; --radius-full: 9999px;
+      --border-width: 1px;
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-micro: 100ms;
+      --dur-state: 220ms;
+
+      --word-hidden: 0.18;
+      --word-blur: 6px;
+      --word-rise: 0.14em;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { color-scheme: dark; background: var(--color-bg); color: var(--color-text); overflow-x: clip; scroll-behavior: smooth; }
+    body { margin: 0; font: 400 var(--text-base)/var(--leading-body) var(--font-body); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2 { font-family: var(--font-display); font-weight: 800; font-variation-settings: "opsz" 96; letter-spacing: -0.035em; line-height: var(--leading-tight); text-wrap: balance; overflow-wrap: anywhere; min-width: 0; }
+    h3 { font-family: var(--font-display); font-weight: 700; font-variation-settings: "opsz" 24; letter-spacing: -0.015em; line-height: 1.15; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+    .wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+    .label { font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); }
+    .accent { color: var(--color-accent); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+    .btn { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 48px; padding: 0 var(--space-6); border-radius: var(--radius-full); border: var(--border-width) solid transparent; font: 600 var(--text-base)/1 var(--font-body); text-decoration: none; white-space: nowrap; cursor: pointer; transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out); }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
+    .btn-secondary { background: transparent; color: var(--color-text); border-color: var(--color-text-muted); }
+    @media (hover: hover) and (pointer: fine) {
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary:hover { background: var(--color-text); }
+      .btn-secondary:hover { border-color: var(--color-text); }
+    }
+
+    .nav { position: sticky; top: 0; z-index: 10; background: color-mix(in oklch, var(--color-bg) 70%, transparent); backdrop-filter: blur(12px); border-bottom: var(--border-width) solid color-mix(in oklch, var(--color-border) 60%, transparent); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: var(--space-6); }
+    .brand { display: inline-flex; align-items: baseline; gap: var(--space-2); text-decoration: none; font: 800 24px/1 var(--font-display); font-variation-settings: "opsz" 24; letter-spacing: -0.03em; }
+    .brand small { font: 500 11px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--color-text-muted); }
+    .nav-links { display: flex; gap: var(--space-8); list-style: none; margin: 0; padding: 0; }
+    .nav-links a { text-decoration: none; font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted); padding: var(--space-3) 0; transition: color var(--dur-micro) var(--ease-out); }
+    .nav-links a[aria-current="true"], .nav-links a:hover { color: var(--color-text); }
+    @media (max-width: 720px) { .nav-links { display: none; } }
+
+    /* hero: full-bleed photo fold, the one rule-break */
+    .hero { position: relative; min-height: min(92svh, 980px); display: grid; align-items: end; overflow: clip; margin-top: -68px; }
+    .hero-media { position: absolute; inset: 0; z-index: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 45%; }
+    .js .hero-media img { transform: scale(1.06); }
+    .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--color-bg) 0%, color-mix(in oklch, var(--color-bg) 70%, transparent) 34%, transparent 68%); }
+    .hero .wrap { position: relative; z-index: 1; padding-block: var(--space-32) var(--space-16); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-8); align-items: end; }
+    .hero-copy { min-width: 0; }
+    .hero-copy .label { margin-bottom: var(--space-6); color: var(--color-text); }
+    .hero h1 { font-size: var(--text-display); max-width: 14ch; }
+    .hero h1 .line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+    .hero h1 .line > span { display: block; }
+    .hero-side { display: grid; gap: var(--space-6); justify-items: start; padding-bottom: var(--space-2); }
+    .hero-lede { max-width: 34ch; font-size: var(--text-lg); color: var(--color-text); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    @media (max-width: 900px) {
+      .hero { min-height: min(88svh, 820px); }
+      .hero .wrap { grid-template-columns: 1fr; gap: var(--space-8); padding-block: var(--space-44) var(--space-12); }
+      .hero-lede { max-width: 44ch; }
+    }
+
+    /* manifesto: signature effect, content at the top of its runway (gate 26b) */
+    .manifesto { height: 200vh; border-top: var(--border-width) solid var(--color-border); }
+    .manifesto .reader { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: start; padding-block: var(--space-32) var(--space-16); }
+    .manifesto .wrap { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 10fr); gap: var(--space-8); align-items: start; }
+    .manifesto .rail { display: grid; gap: var(--space-4); }
+    .manifesto .count { font: 700 var(--text-2xl)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+    .passage { font-family: var(--font-display); font-weight: 700; font-variation-settings: "opsz" 96; font-size: var(--text-statement); line-height: 1.02; letter-spacing: -0.03em; max-width: 24ch; }
+    .passage strong { font-weight: 700; color: var(--color-accent); }
+    [data-word] { display: inline; opacity: calc(var(--word-hidden) + var(--word-progress, 1) * (1 - var(--word-hidden))); filter: blur(calc((1 - var(--word-progress, 1)) * var(--word-blur))); transform: translateY(calc((1 - var(--word-progress, 1)) * var(--word-rise))); }
+    @media (max-width: 720px) {
+      .manifesto { height: auto; }
+      .manifesto .reader { position: relative; min-height: 0; }
+      .manifesto .wrap { grid-template-columns: 1fr; }
+      .manifesto .rail { grid-auto-flow: column; justify-content: start; align-items: center; }
+    }
+
+    .section { padding-block: var(--space-32) var(--space-24); border-top: var(--border-width) solid var(--color-border); } /* 224px between sections, gate 26 */
+    .section-head { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 10fr); gap: var(--space-8); margin-bottom: var(--space-16); }
+    .section-head h2 { font-size: var(--text-statement); max-width: 18ch; }
+    .section-head p { max-width: var(--measure); margin-top: var(--space-4); color: var(--color-text-muted); font-size: var(--text-lg); }
+    @media (max-width: 720px) { .section { padding-block: var(--space-24); } .section-head { grid-template-columns: 1fr; gap: var(--space-4); margin-bottom: var(--space-12); } }
+
+    /* system */
+    .system { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-12); align-items: start; }
+    .system-visual { position: sticky; top: 100px; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; border: var(--border-width) solid var(--color-border); }
+    .system-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .principles { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+    .principle { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--space-6); padding: var(--space-8); background: var(--color-surface); border: var(--border-width) solid var(--color-border); border-radius: var(--radius-lg); }
+    .principle .num { font: 500 var(--text-sm)/1.6 var(--font-mono); color: var(--color-accent); }
+    .principle h3 { font-size: var(--text-xl); margin-bottom: var(--space-3); }
+    .principle p { color: var(--color-text-muted); max-width: 52ch; }
+    .principle .artifact { display: inline-block; margin-top: var(--space-4); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); background: var(--color-bg); border: var(--border-width) solid var(--color-border); font: 400 13px/1.5 var(--font-mono); color: var(--color-text); }
+    @media (max-width: 900px) { .system { grid-template-columns: 1fr; } .system-visual { position: static; aspect-ratio: 16 / 10; } .principle { padding: var(--space-6); } }
+
+    /* build week */
+    .week { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-4); list-style: none; margin: 0; padding: 0; }
+    .day { padding: var(--space-6); min-height: 280px; display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-6); background: var(--color-surface); border: var(--border-width) solid var(--color-border); border-radius: var(--radius-lg); }
+    .day h3 { font-size: var(--text-xl); margin-bottom: var(--space-2); }
+    .day p { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .day .out { font: 400 13px/1.5 var(--font-mono); color: var(--color-text); border-top: var(--border-width) solid var(--color-border); padding-top: var(--space-4); }
+    .day.ship { border-color: var(--color-primary); }
+    .day.ship .label, .day.ship .out { color: var(--color-accent); }
+    @media (max-width: 1100px) { .week { grid-template-columns: repeat(2, minmax(0, 1fr)); } .day { min-height: 0; } }
+    @media (max-width: 560px) { .week { grid-template-columns: 1fr; } }
+
+    /* terms */
+    .terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .term { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--space-4); padding: var(--space-8); background: var(--color-surface); border: var(--border-width) solid var(--color-border); border-radius: var(--radius-lg); }
+    .term svg { width: 20px; height: 20px; margin-top: 2px; color: var(--color-accent); }
+    .term h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
+    .term p { color: var(--color-text-muted); font-size: var(--text-sm); max-width: 44ch; }
+    @media (max-width: 720px) { .terms { grid-template-columns: 1fr; } .term { padding: var(--space-6); } }
+
+    /* close: second photo fold */
+    .close { position: relative; min-height: min(80svh, 820px); display: grid; align-items: end; overflow: clip; border-top: var(--border-width) solid var(--color-border); }
+    .close-media { position: absolute; inset: 0; z-index: 0; }
+    .close-media img { width: 100%; height: 100%; object-fit: cover; object-position: 92% 50%; }
+    .close-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--color-bg) 0%, color-mix(in oklch, var(--color-bg) 65%, transparent) 40%, transparent 75%); }
+    .close .wrap { position: relative; z-index: 1; padding-block: var(--space-44) var(--space-24); display: grid; gap: var(--space-8); max-width: 900px; margin-inline: auto; justify-items: start; }
+    .close h2 { font-size: var(--text-display); max-width: 13ch; }
+    .close p { font-size: var(--text-lg); color: var(--color-text); max-width: 44ch; }
+    .close-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6); }
+    .close .mail { font: 500 var(--text-base)/1 var(--font-mono); color: var(--color-text); text-decoration-color: var(--color-accent); text-underline-offset: 6px; padding: var(--space-3) 0; }
+    @media (max-width: 720px) { .close .wrap { padding-block: var(--space-32) var(--space-16); } }
+
+    footer { border-top: var(--border-width) solid var(--color-border); padding-block: var(--space-8); }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+    footer ul { display: flex; gap: var(--space-6); list-style: none; margin: 0; padding: 0; }
+    footer a { text-decoration: none; padding: var(--space-3) 0; }
+    footer a:hover { color: var(--color-text); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .js .hero-media img { transform: none; }
+      [data-word] { opacity: 1 !important; filter: none !important; transform: none !important; }
+      .manifesto { height: auto; }
+      .manifesto .reader { position: relative; min-height: 0; }
+      .btn, .nav-links a { transition-duration: 0.01ms; }
+      .btn:hover, .btn:active { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Kestrel, home">Kestrel <small>STUDIO</small></a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#system">System</a></li>
+          <li><a href="#week">Build week</a></li>
+          <li><a href="#terms">Terms</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-secondary" href="#contact">Book a scoping call</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <img src="assets/kestrel-terrain-2.png" alt="" width="1024" height="1024" fetchpriority="high">
+      </div>
+      <div class="wrap">
+        <div class="hero-copy">
+          <p class="label">AI-native software studio</p>
+          <h1 id="hero-title" aria-label="Software shipped in days, not quarters.">
+            <span class="line" aria-hidden="true"><span>Software shipped</span></span>
+            <span class="line" aria-hidden="true"><span>in <span class="accent">days,</span></span></span>
+            <span class="line" aria-hidden="true"><span>not quarters.</span></span>
+          </h1>
+        </div>
+        <div class="hero-side">
+          <p class="hero-lede">Senior engineers paired with AI agents build, test, and ship production software at a pace your roadmap has never seen.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Book a scoping call</a>
+            <a class="btn btn-secondary" href="#week">See a build week</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="reader">
+        <div class="wrap">
+          <div class="rail" aria-hidden="true">
+            <span class="label">The problem</span>
+            <span class="count"><span data-count>00</span>%</span>
+          </div>
+          <div>
+            <h2 id="manifesto-title" class="sr-only">Why software is late</h2>
+            <p class="sr-only">Most software is late because the pipeline is slow, not the people. Specs wait on meetings. Estimates wait on specs. Sprints wait on estimates. We removed the waiting.</p>
+            <p class="passage" data-passage aria-hidden="true">Most software is late because the pipeline is slow, not the people. Specs wait on meetings. Estimates wait on specs. Sprints wait on estimates. <strong>We removed the waiting.</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="system" aria-labelledby="system-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal data-reveal-group>
+          <p class="label">The system</p>
+          <div>
+            <h2 id="system-title">Agents write the code. Seniors decide what ships.</h2>
+            <p>Every engagement runs on the same three rules. They are why the speed holds up in production, not just in the demo.</p>
+          </div>
+        </div>
+        <div class="system">
+          <ol class="principles" data-reveal data-reveal-group>
+            <li class="principle">
+              <span class="num">01</span>
+              <div>
+                <h3>A human senior reviews every merge</h3>
+                <p>Agents open the pull request with the diff, the tests, and a written rationale. Nothing reaches main until a named engineer has read it and signed it.</p>
+                <span class="artifact">artifact: PR with rationale, reviewer name, review time</span>
+              </div>
+            </li>
+            <li class="principle">
+              <span class="num">02</span>
+              <div>
+                <h3>Tests are written before the feature</h3>
+                <p>Day two produces the test plan. Agents build against it, so "done" is a green suite you can run yourself, not a screenshot in a status update.</p>
+                <span class="artifact">artifact: test plan, runnable suite, coverage report</span>
+              </div>
+            </li>
+            <li class="principle">
+              <span class="num">03</span>
+              <div>
+                <h3>You own the repository from day one</h3>
+                <p>We work in your GitHub organisation, on your infrastructure, under your access controls. When the week ends, nothing has to be handed over because it was never ours.</p>
+                <span class="artifact">artifact: your repo, your CI, your deploy keys</span>
+              </div>
+            </li>
+          </ol>
+          <figure class="system-visual" data-reveal>
+            <img src="assets/kestrel-moss.png" alt="" width="1024" height="1024" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="week" aria-labelledby="week-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal data-reveal-group>
+          <p class="label">A build week</p>
+          <div>
+            <h2 id="week-title">Five days. One shipped increment.</h2>
+            <p>Each week has the same shape. You see the plan on Monday, the tests on Tuesday, and running software on Friday.</p>
+          </div>
+        </div>
+        <ol class="week" data-reveal data-reveal-group>
+          <li class="day">
+            <span class="label">Mon</span>
+            <div><h3>Scope</h3><p>A 90-minute session turns the brief into one increment with a written definition of done.</p></div>
+            <span class="out">out: scope doc, signed</span>
+          </li>
+          <li class="day">
+            <span class="label">Tue</span>
+            <div><h3>Plan the tests</h3><p>Architecture notes and the test plan go into the repo. You can object before a line of feature code exists.</p></div>
+            <span class="out">out: test plan, ADRs</span>
+          </li>
+          <li class="day">
+            <span class="label">Wed</span>
+            <div><h3>Build</h3><p>Agents implement against the tests in parallel branches. Seniors review and merge through the day.</p></div>
+            <span class="out">out: merged PRs, green CI</span>
+          </li>
+          <li class="day">
+            <span class="label">Thu</span>
+            <div><h3>Harden</h3><p>Load, failure, and rollback paths are exercised on a staging deploy that matches production.</p></div>
+            <span class="out">out: staging URL, runbook</span>
+          </li>
+          <li class="day ship">
+            <span class="label">Fri</span>
+            <div><h3>Ship</h3><p>Production deploy, a recorded walkthrough, and a plain-language changelog. Then we scope the next week or stop.</p></div>
+            <span class="out">out: live release, changelog</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="terms" aria-labelledby="terms-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal data-reveal-group>
+          <p class="label">In writing</p>
+          <div>
+            <h2 id="terms-title">What every engagement guarantees</h2>
+            <p>These are contract terms, not marketing claims. They are in the first document you sign.</p>
+          </div>
+        </div>
+        <div class="terms" data-reveal data-reveal-group>
+          <div class="term">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div><h3>Fixed price per build week</h3><p>One number, agreed on Monday. No hourly billing, no change-order surprises inside the week.</p></div>
+          </div>
+          <div class="term">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div><h3>Stop any Friday</h3><p>Every week ends with shipped software. If the next one is not worth it, you keep everything and walk away.</p></div>
+          </div>
+          <div class="term">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div><h3>Named reviewer on every merge</h3><p>The engineer who approved each change is recorded in the PR. You can ask them why.</p></div>
+          </div>
+          <div class="term">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div><h3>30 days of fixes after the last week</h3><p>Defects in what we shipped are fixed at no charge for a month after the engagement ends.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close" id="contact" aria-labelledby="close-title">
+      <div class="close-media" aria-hidden="true">
+        <img src="assets/kestrel-rock.png" alt="" width="1024" height="1024" loading="lazy">
+      </div>
+      <div class="wrap" data-reveal data-reveal-group>
+        <p class="label">Start</p>
+        <h2 id="close-title">Bring the thing that has been on the roadmap for a year.</h2>
+        <p>A 30-minute scoping call tells you whether it fits a build week and what the first Friday would ship.</p>
+        <div class="close-actions">
+          <a class="btn btn-primary" href="mailto:hello@kestrel.example">Book a scoping call</a>
+          <a class="mail" href="mailto:hello@kestrel.example">hello@kestrel.example</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Kestrel. A fictional studio built to demonstrate the frontend-design skill.</span>
+      <ul>
+        <li><a href="#system">System</a></li>
+        <li><a href="#week">Build week</a></li>
+        <li><a href="#terms">Terms</a></li>
+        <li><a href="mailto:hello@kestrel.example">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/gsap-starter.js"></script>
+  <script>
+    TastemakerMotion.init({ duration: 0.22, distance: 16, ease: "power3.out", staggerStep: 0.06 });
+
+    // Hero: four beats. Photo settles, headline lines, nav, lede + actions.
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.to(".hero-media img", { scale: 1, duration: 1.4, ease: "power4.out" })
+        .from(".hero h1 .line > span", { yPercent: 110, duration: 0.85, stagger: 0.1 }, "-=1.1")
+        .from(".nav .wrap", { autoAlpha: 0, y: -8, duration: 0.5 }, "-=0.6")
+        .from(".hero-copy .label, .hero-side > *", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.06 }, "-=0.5");
+    });
+
+    // Signature effect: scroll-scrubbed word reveal.
+    (() => {
+      const passage = document.querySelector("[data-passage]");
+      const section = document.querySelector(".manifesto");
+      const counter = document.querySelector("[data-count]");
+      if (!passage || !section) return;
+      const original = passage.cloneNode(true);
+      const walker = document.createTreeWalker(passage, NodeFilter.SHOW_TEXT, {
+        acceptNode: (n) => (n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT),
+      });
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      for (const node of nodes) {
+        const frag = document.createDocumentFragment();
+        for (const token of node.nodeValue.split(/(\s+)/)) {
+          if (/^\s+$/.test(token)) frag.append(token);
+          else if (token) { const s = document.createElement("span"); s.dataset.word = ""; s.textContent = token; frag.append(s); }
+        }
+        node.replaceWith(frag);
+      }
+      const words = [...passage.querySelectorAll("[data-word]")];
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+      let scheduled = false;
+      function render() {
+        scheduled = false;
+        const rect = section.getBoundingClientRect();
+        const distance = Math.max(1, section.offsetHeight - innerHeight);
+        const progress = reduced.matches ? 1 : Math.min(1, Math.max(0, -rect.top / distance));
+        const head = 2.5 + progress * (words.length - 0.5);
+        words.forEach((w, i) => w.style.setProperty("--word-progress", Math.min(1, Math.max(0, (head - i) / 2.4)).toFixed(3)));
+        if (counter) counter.textContent = String(Math.round(progress * 100)).padStart(2, "0");
+      }
+      const request = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(render); } };
+      addEventListener("scroll", request, { passive: true });
+      addEventListener("resize", request);
+      reduced.addEventListener("change", request);
+      addEventListener("pagehide", () => passage.replaceWith(original), { once: true });
+      render();
+    })();
+
+    // Active nav link follows the section in view.
+    (() => {
+      const links = [...document.querySelectorAll(".nav-links a")];
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          links.forEach((a) => a.setAttribute("aria-current", a.hash === "#" + e.target.id ? "true" : "false"));
+        });
+      }, { rootMargin: "-40% 0px -55% 0px" });
+      links.forEach((a) => { const t = document.querySelector(a.hash); if (t) io.observe(t); });
+    })();
+
+    addEventListener("load", () => { if (window.ScrollTrigger) ScrollTrigger.refresh(); });
+  </script>
+</body>
+</html>
