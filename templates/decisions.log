@@ -1,0 +1,20 @@
+# .frontend-design/decisions.log
+# Append-only. One JSON object per line. Never edit or delete an earlier line; append a newer one.
+# Rules: references/taste-memory.md
+#
+# Fields:
+#   ts        ISO-8601 timestamp with offset, e.g. 2026-09-16T10:00:00+05:30
+#   project   repo-root path
+#   screen    screen or component the decision applies to
+#   decision  the specific choice, at build-useful resolution ("36px table rows", not "looks nice")
+#   status    pending-review | kept | rejected
+#   why       reason it was kept, rejected, or proposed
+#   axis      palette | type | density | structure | effects | imagery | copy | interaction | other
+#   source    user | agent-pending | migration
+#   promote   true only for a resolved decision the user wants carried into ~/.frontend-design/profile.md
+#
+# pending-review is never approval. A resolving entry is a new line that references the pending one in "why".
+#
+# Format:
+# {"ts":"2026-09-16T10:00:00+05:30","project":"/path/to/repo","screen":"homepage hero","decision":"one promise, one explanation, two actions, one visual","status":"kept","why":"user preferred a clean first impression","axis":"structure","source":"user","promote":true}
+# {"ts":"2026-09-16T10:06:00+05:30","project":"/path/to/repo","screen":"dashboard empty state","decision":"line illustration tinted to locked accent","status":"pending-review","why":"avoids an asset-empty state; needs user confirmation","axis":"imagery","source":"agent-pending","promote":false}
